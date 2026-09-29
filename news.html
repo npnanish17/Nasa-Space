@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NASA News</title>
+<style>
+  :root{
+    --nasa-red:#FC3D21;
+    --nasa-blue:#0B3D91;
+    --black:#000000;
+    --grey-text:#9aa0a6;
+    --line:#e3e3e3;
+    --max-w:1280px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:#fff;color:#111;line-height:1.4;
+  }
+  img{max-width:100%;display:block;object-fit:cover;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 32px;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{background:#000;color:#fff;padding:14px 0;}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .topbar-left{display:flex;align-items:center;gap:20px;}
+  .logo img{height:34px;width:34px;border-radius:50%;}
+  .explore-btn{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;}
+  .search-box{
+    display:flex;align-items:center;gap:8px;background:#1b1b1b;border:1px solid #3a3a3a;
+    border-radius:20px;padding:6px 14px;font-size:13px;color:var(--grey-text);
+  }
+  .search-box input{background:none;border:none;color:#fff;font-size:13px;width:120px;outline:none;}
+  .topbar nav{display:flex;gap:28px;font-size:14px;font-weight:600;}
+  .topbar nav a{display:flex;align-items:center;gap:4px;}
+ 
+
+  /* ---------- Sub nav ---------- */
+  .subnav{background:#000;border-top:1px solid #1f1f1f;padding:14px 0;}
+  .subnav .wrap{display:flex;gap:28px;font-size:13px;font-weight:600;color:#ddd;flex-wrap:wrap;}
+  .subnav a.active{color:#fff;border-bottom:2px solid var(--nasa-red);padding-bottom:4px;}
+
+  /* ---------- Hero ---------- */
+  .news-hero{position:relative;height:460px;overflow:hidden;background:#333;}
+  .news-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .news-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,.15), rgba(0,0,0,.35));}
+  .news-hero-content{position:relative;z-index:2;height:100%;display:flex;align-items:center;}
+  .news-hero-content h1{font-size:48px;font-weight:800;color:#fff;padding:0 32px;}
+  .news-hero-logo{position:absolute;z-index:2;left:32px;bottom:24px;}
+  .news-hero-logo img{width:36px;height:36px;border-radius:50%;}
+
+  /* ---------- Section headers ---------- */
+  .section{padding:56px 0;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:28px;}
+  .section-head h2{font-size:30px;font-weight:800;}
+  .see-more{font-size:13px;font-weight:700;color:var(--nasa-red);display:flex;align-items:center;gap:4px;}
+
+  /* ---------- News grid ---------- */
+  .release-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px;}
+  .release-card{position:relative;border-radius:4px;overflow:hidden;background:#000;color:#fff;min-height:280px;}
+  .release-card img{width:100%;height:100%;position:absolute;inset:0;opacity:.9;}
+  .release-card .tag{
+    position:absolute;top:14px;left:14px;font-size:10px;font-weight:700;letter-spacing:.06em;
+    background:rgba(0,0,0,.55);padding:4px 8px;border-radius:2px;z-index:2;
+  }
+  .release-card .info{position:absolute;left:0;right:0;bottom:0;padding:16px;z-index:2;
+    background:linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,0));}
+  .release-card .info .read{font-size:11px;color:#ccc;margin-bottom:6px;letter-spacing:.03em;}
+  .release-card .info h3{font-size:16px;font-weight:700;line-height:1.25;}
+  .release-stack{display:flex;flex-direction:column;gap:16px;}
+  .release-stack .release-card{min-height:132px;}
+
+  /* ---------- Sign up strip ---------- */
+  .strip-title{font-size:14px;font-weight:700;margin-bottom:12px;}
+  .strip-row{
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    border-top:1px solid var(--line);padding:22px 0;
+  }
+  .strip-left{display:flex;align-items:center;gap:16px;}
+  .strip-left img{width:40px;height:40px;border-radius:50%;flex-shrink:0;}
+  .strip-left h3{font-size:20px;font-weight:800;}
+  .strip-desc{font-size:13px;color:#666;max-width:400px;text-align:right;flex:1;}
+  .arrow-btn{
+    width:30px;height:30px;border-radius:50%;background:var(--nasa-red);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;
+  }
+
+  /* ---------- Media resources list ---------- */
+  .media-list .strip-row{justify-content:space-between;}
+  .media-list h3{font-size:22px;font-weight:800;}
+  .media-list .strip-row:last-child{border-bottom:1px solid var(--line);}
+
+  /* ---------- Discover more ---------- */
+  .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;color:#888;margin-bottom:6px;}
+  .discover-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .discover-card{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;background:#111;}
+  .discover-card img{position:absolute;inset:0;width:100%;height:100%;}
+  .discover-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 55%);}
+  .discover-card .label{
+    position:absolute;left:16px;bottom:16px;z-index:2;color:#fff;font-size:16px;font-weight:700;
+    display:flex;align-items:center;gap:6px;
+  }
+  .dot{width:16px;height:16px;border-radius:50%;background:var(--nasa-red);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;}
+
+  /* ---------- Footer ---------- */
+  footer{background:#000;color:#ccc;padding:48px 0 20px;}
+  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:30px;margin-bottom:40px;}
+  .footer-brand{display:flex;gap:14px;}
+  .footer-brand img{width:46px;height:46px;border-radius:50%;}
+  .footer-brand h4{font-size:14px;color:#fff;margin-bottom:8px;}
+  .footer-brand p{font-size:12px;color:#999;max-width:260px;margin-bottom:10px;}
+  .footer-brand .join{font-size:12px;font-weight:700;color:var(--nasa-red);}
+  .footer-col h5{font-size:12px;color:#fff;margin-bottom:14px;}
+  .footer-col ul li{font-size:12px;color:#999;margin-bottom:10px;}
+  .footer-social{display:flex;gap:10px;margin-top:10px;}
+  .footer-social span{
+    width:26px;height:26px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-size:11px;
+  }
+  .footer-bottom{
+    border-top:1px solid #222;padding-top:18px;display:flex;justify-content:space-between;
+    font-size:11px;color:#777;flex-wrap:wrap;gap:10px;
+  }
+  .footer-bottom ul{display:flex;gap:18px;flex-wrap:wrap;}
+
+  @media (max-width:980px){
+    .release-grid{grid-template-columns:1fr;}
+    .discover-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-top{grid-template-columns:repeat(2,1fr);}
+    .news-hero-content h1{font-size:32px;}
+    .strip-desc{text-align:left;}
+  }
+  .nasa-plus {
+    color: var(--nasa-red);
+    font-weight: 700;
+}
+
+.nasa-plus span {
+
+    border-radius: 4px;
+    border: 1px solid var(--nasa-red);
+    padding: 3px 6px;
+    font-size: 11px;
+    color: #fff;
+
+}
+
+.nasa-plus span:hover   {
+    background: var(--nasa-red);
+    color: #fff;
+    white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a class="logo" href="index.html"><img src="assets/nasa-logo.png" alt="NASA logo"></a>
+      <a class="explore-btn" href="#">Explore ▾</a>
+      <div class="search-box">🔍 <input type="text" placeholder="Search"></div>
+    </div>
+    <nav>
+      <a href="news.html">News &amp; Events ▾</a>
+      <a href="multimedia.html">Multimedia ▾</a>
+    <a href="nasa-plus.html" class="nasa-plus">NASA+ <span class="live-tag">LIVE</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= SUB NAV ================= -->
+<nav class="subnav">
+  <div class="wrap">
+    <a href="news.html" class="active">News Releases</a>
+    <a href="#">Recently Published</a>
+    <a href="#">Blogs</a>
+    <a href="#">Newsletters</a>
+    <a href="#">Social Media ▾</a>
+    <a href="#">Budgets and Reports</a>
+    <a href="#">More ▾</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="news-hero">
+  <img src="assets/hero-news-helicopter.jpg" alt="Helicopter recovering a space capsule at sea">
+  <div class="news-hero-content"><div class="wrap"><h1>NASA News</h1></div></div>
+  <div class="news-hero-logo"><img src="assets/nasa-logo.png" alt="NASA logo"></div>
+</section>
+
+<!-- ================= NEWS RELEASES ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>News Releases</h2>
+      <a class="see-more" href="#">2026 News Releases ●</a>
+    </div>
+
+    <div class="release-grid">
+      <div class="release-card">
+        <span class="tag">◐ NEWS RELEASE</span>
+        <img src="assets/release-starliner.jpg" alt="Boeing Starliner capsule in orbit above Earth">
+        <div class="info">
+          <div class="read">1 MIN READ</div>
+          <h3>NASA, Boeing to Provide Update on Starliner Development</h3>
+        </div>
+      </div>
+
+      <div class="release-card">
+        <span class="tag">◐ BLOG</span>
+        <img src="assets/release-station-crew-swap.jpg" alt="Astronaut crew portrait for Crew Swap health research">
+        <div class="info">
+          <div class="read">3 MIN READ</div>
+          <h3>Station Gets Ready for SpaceX Crew Swap During Health Research</h3>
+        </div>
+      </div>
+
+      <div class="release-stack">
+        <div class="release-card">
+          <span class="tag">◐ BLOG</span>
+          <img src="assets/release-cygnus-reboost.jpg" alt="Cygnus XL cargo spacecraft docked at the space station">
+          <div class="info">
+            <div class="read">2 MIN READ</div>
+            <h3>NASA, Northrop Grumman Complete Cygnus XL Space Station Reboost</h3>
+          </div>
+        </div>
+        <div class="release-card">
+          <span class="tag">◐ NEWS RELEASE</span>
+          <img src="assets/release-crew14-assignments.jpg" alt="Astronauts in spacesuits assigned to Crew-14 mission">
+          <div class="info">
+            <div class="read">4 MIN READ</div>
+            <h3>NASA Shares SpaceX Crew-14 Assignments for Space Station Mission</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGN UP STRIP ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="strip-title">Receive NASA News Releases</div>
+    <div class="strip-row">
+      <div class="strip-left">
+        <img src="assets/nasa-logo.png" alt="NASA logo">
+        <h3>Sign Up</h3>
+      </div>
+      <div class="strip-desc">Sign up to receive NASA news releases and other information.</div>
+      <div class="arrow-btn">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MEDIA RESOURCES ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap media-list">
+    <div class="strip-title" style="font-size:15px;">Resources for News Media</div>
+
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>Communications Policy</h3></div><div class="arrow-btn">→</div></div>
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>Media Accreditation Policy</h3></div><div class="arrow-btn">→</div></div>
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>Media Contacts</h3></div><div class="arrow-btn">→</div></div>
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>Upcoming Launches</h3></div><div class="arrow-btn">→</div></div>
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>NASA Brand Center</h3></div><div class="arrow-btn">→</div></div>
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>Budgets and Reports</h3></div><div class="arrow-btn">→</div></div>
+    <div class="strip-row"><div class="strip-left"><img src="assets/nasa-logo.png" alt="NASA logo"><h3>News Release Archive</h3></div><div class="arrow-btn">→</div></div>
+  </div>
+</section>
+
+<!-- ================= DISCOVER MORE ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="eyebrow">KEEP EXPLORING</div>
+    <h2 style="font-size:26px;font-weight:800;margin-bottom:24px;">Discover More</h2>
+    <div class="discover-grid">
+      <div class="discover-card"><img src="assets/discover-nasa-images.jpg" alt="Astronaut footprint on the lunar surface"><div class="label">NASA Images <span class="dot">●</span></div></div>
+      <div class="discover-card"><img src="assets/discover-blogs.jpg" alt="Satellite orbiting above Earth"><div class="label">Blogs <span class="dot">●</span></div></div>
+      <div class="discover-card"><img src="assets/discover-newsletters.jpg" alt="Colorful nebula with helicopter silhouette overlay"><div class="label">Newsletters <span class="dot">●</span></div></div>
+      <div class="discover-card"><img src="assets/discover-nasa-history.jpg" alt="Reflection of an astronaut and flag in a spacesuit visor"><div class="label">NASA History <span class="dot">●</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/nasa-logo.png" alt="NASA logo">
+        <div>
+          <h4>National Aeronautics and Space Administration</h4>
+          <p>NASA explores the unknown in air and space, innovates for the benefit of humanity, and inspires the world through discovery.</p>
+          <div style="margin-top:6px;">
+            <a href="#" style="display:block;font-size:12px;color:#999;margin-bottom:6px;">About NASA's Mission</a>
+            <a class="join" href="#">Join Us ●</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>NASA</h5>
+        <ul><li><a href="index.html">Home</a></li><li><a href="news.html">News &amp; Events</a></li><li><a href="multimedia.html">Multimedia</a></li><li><a href="nasa-plus.html">NASA+ <span style="color:var(--nasa-red);">LIVE</span></a></li><li><a href="missions.html">Missions</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul><li><a href="humans-in-space.html">Humans in Space</a></li><li><a href="earth.html">Earth</a></li><li><a href="solar-system.html">The Solar System</a></li><li><a href="universe.html">The Universe</a></li><li><a href="science.html">Science</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul><li><a href="aeronautics.html">Aeronautics</a></li><li><a href="technology.html">Technology</a></li><li><a href="learning-resources.html">Learning Resources</a></li><li><a href="about-nasa.html">About NASA</a></li><li><a href="nasa-en-espanol.html">NASA en Español</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Follow NASA</h5>
+        <div class="footer-social"><span>f</span><span>ig</span><span>x</span><span>yt</span></div>
+        <ul style="margin-top:14px;"><li><a href="more-nasa-social-accounts.html">More NASA Social Accounts</a></li><li><a href="nasa-newsletters.html">NASA Newsletters</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <ul><li>Sitemap</li><li>For Media</li><li>Privacy Policy</li><li>FOIA</li><li>No FEAR Act</li><li>Office of the IG</li><li>Budget &amp; Annual Reports</li><li>Agency Financial Reports</li><li>Contact NASA</li><li>Accessibility</li></ul>
+    </div>
+    <div class="footer-bottom" style="border-top:none;padding-top:6px;">
+      <span>Page Last Updated: May 01, 2026</span>
+      <span>Page Editor: Dacia Massengill</span>
+      <span>Responsible NASA Official: Abigail Bowman</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Simple active-state toggle for the sub-navigation
+  document.querySelectorAll('.subnav a').forEach(link=>{
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      document.querySelectorAll('.subnav a').forEach(a=>a.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Arrow-button hover ripple feedback (small UX touch)
+  document.querySelectorAll('.arrow-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> btn.style.transform = 'scale(0.9)');
+    btn.addEventListener('animationend', ()=> btn.style.transform = 'scale(1)');
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NASA Multimedia</title>
+<style>
+  :root{
+    --nasa-red:#FC3D21;
+    --nasa-blue:#0B3D91;
+    --black:#000000;
+    --grey-text:#9aa0a6;
+    --line:#e3e3e3;
+    --panel:#f2f2f2;
+    --max-w:1280px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:#fff;color:#111;line-height:1.4;
+  }
+  img{max-width:100%;display:block;object-fit:cover;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  .wrap{max-width:var(--max-w);margin:0 auto;padding:0 32px;}
+
+  /* ---------- Top bar ---------- */
+  .topbar{background:#000;color:#fff;padding:14px 0;}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+  .topbar-left{display:flex;align-items:center;gap:20px;}
+  .logo img{height:34px;width:34px;border-radius:50%;}
+  .explore-btn{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;}
+  .search-box{
+    display:flex;align-items:center;gap:8px;background:#1b1b1b;border:1px solid #3a3a3a;
+    border-radius:20px;padding:6px 14px;font-size:13px;color:var(--grey-text);
+  }
+  .search-box input{background:none;border:none;color:#fff;font-size:13px;width:120px;outline:none;}
+  .topbar nav{display:flex;gap:28px;font-size:14px;font-weight:600;}
+  .topbar nav a{display:flex;align-items:center;gap:4px;}
+ 
+
+  /* ---------- Sub nav ---------- */
+  .subnav{background:#000;border-top:1px solid #1f1f1f;padding:14px 0;}
+  .subnav .wrap{display:flex;gap:26px;font-size:13px;font-weight:600;color:#ddd;flex-wrap:wrap;justify-content:center;}
+  .subnav a.active{color:#fff;border-bottom:2px solid var(--nasa-red);padding-bottom:4px;}
+
+  /* ---------- Page header ---------- */
+  .page-head{padding:56px 0 24px;}
+  .page-head .wrap{display:flex;justify-content:space-between;gap:40px;align-items:flex-start;}
+  .page-head h1{font-size:56px;font-weight:800;}
+  .news-callout{max-width:420px;text-align:left;}
+  .news-callout .tag{font-size:11px;font-weight:700;color:#888;letter-spacing:.08em;margin-bottom:8px;}
+  .news-row{display:flex;gap:16px;align-items:flex-start;}
+  .news-row p{font-size:13px;color:#444;}
+  .news-thumb{width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0;}
+  .news-thumb img{width:100%;height:100%;}
+  .news-nav{display:flex;gap:8px;margin-top:14px;}
+  .news-nav button{width:26px;height:26px;border-radius:50%;border:1px solid #ccc;font-size:11px;}
+
+  /* ---------- Hero figure ---------- */
+  .hero-figure{padding:0 0 48px;}
+  .hero-figure img{border-radius:2px;width:100%;max-height:480px;object-fit:cover;}
+  .caption{font-size:12px;color:#777;margin-top:10px;line-height:1.5;}
+
+  /* ---------- Feature rows (alternating grey) ---------- */
+  .feature-row{background:var(--panel);padding:64px 0;}
+  .feature-row.white{background:#fff;}
+  .feature-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:center;}
+  .feature-text .eyebrow{font-size:13px;color:#555;margin-bottom:10px;}
+  .feature-text h2{font-size:34px;font-weight:800;margin-bottom:14px;line-height:1.15;}
+  .feature-text p{font-size:14px;color:#555;margin-bottom:16px;max-width:380px;}
+  .feature-link{font-size:14px;font-weight:700;color:#111;display:inline-flex;align-items:center;gap:6px;}
+  .feature-link .dot{width:16px;height:16px;border-radius:50%;background:var(--nasa-red);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;}
+  .feature-media img{border-radius:2px;width:100%;}
+  .feature-media .caption{max-width:520px;}
+
+  /* ---------- More online features ---------- */
+  .section{padding:64px 0;}
+  .section h2{font-size:30px;font-weight:800;margin-bottom:28px;}
+  .online-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .online-card img{border-radius:4px;width:100%;aspect-ratio:1/1;margin-bottom:14px;}
+  .online-card h4{font-size:15px;font-weight:800;margin-bottom:6px;}
+  .online-card p{font-size:12px;color:#666;margin-bottom:8px;}
+  .online-card .link{font-size:12px;font-weight:700;color:#111;display:inline-flex;align-items:center;gap:6px;}
+
+  /* ---------- Brand center full bleed ---------- */
+  .brand-center{position:relative;min-height:480px;display:flex;align-items:center;overflow:hidden;color:#fff;}
+  .brand-center img{position:absolute;inset:0;width:100%;height:100%;}
+  .brand-center::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg, rgba(0,0,0,.6) 30%, rgba(0,0,0,.15) 70%);}
+  .brand-center .wrap{position:relative;z-index:2;}
+  .brand-center h2{font-size:34px;font-weight:800;margin-bottom:14px;}
+  .brand-center p{font-size:14px;color:#eee;max-width:460px;margin-bottom:16px;}
+  .brand-center .link{font-size:13px;font-weight:700;color:#fff;}
+
+  /* ---------- Discover more ---------- */
+  .discover-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .discover-card{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/4;background:#111;}
+  .discover-card img{position:absolute;inset:0;width:100%;height:100%;}
+  .discover-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0) 55%);}
+  .discover-card .label{
+    position:absolute;left:16px;bottom:16px;z-index:2;color:#fff;font-size:16px;font-weight:700;
+    display:flex;align-items:center;gap:6px;
+  }
+  .dot{width:16px;height:16px;border-radius:50%;background:var(--nasa-red);display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;}
+
+  /* ---------- Footer ---------- */
+  footer{background:#000;color:#ccc;padding:48px 0 20px;}
+  .footer-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:30px;margin-bottom:40px;}
+  .footer-brand{display:flex;gap:14px;}
+  .footer-brand img{width:46px;height:46px;border-radius:50%;}
+  .footer-brand h4{font-size:14px;color:#fff;margin-bottom:8px;}
+  .footer-brand p{font-size:12px;color:#999;max-width:260px;margin-bottom:10px;}
+  .footer-brand .join{font-size:12px;font-weight:700;color:var(--nasa-red);}
+  .footer-col h5{font-size:12px;color:#fff;margin-bottom:14px;}
+  .footer-col ul li{font-size:12px;color:#999;margin-bottom:10px;}
+  .footer-social{display:flex;gap:10px;margin-top:10px;}
+  .footer-social span{
+    width:26px;height:26px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-size:11px;
+  }
+  .footer-bottom{
+    border-top:1px solid #222;padding-top:18px;display:flex;justify-content:space-between;
+    font-size:11px;color:#777;flex-wrap:wrap;gap:10px;
+  }
+  .footer-bottom ul{display:flex;gap:18px;flex-wrap:wrap;}
+
+  @media (max-width:980px){
+    .page-head .wrap{flex-direction:column;}
+    .feature-grid{grid-template-columns:1fr;}
+    .online-grid{grid-template-columns:repeat(2,1fr);}
+    .discover-grid{grid-template-columns:repeat(2,1fr);}
+    .footer-top{grid-template-columns:repeat(2,1fr);}
+    .page-head h1{font-size:38px;}
+  }
+
+.nasa-plus {
+    color: var(--nasa-red);
+    font-weight: 700;
+}
+
+.nasa-plus span {
+
+    border-radius: 4px;
+    border: 1px solid var(--nasa-red);
+    padding: 3px 6px;
+    font-size: 11px;
+    color: #fff;
+
+}
+
+.nasa-plus span:hover   {
+    background: var(--nasa-red);
+    color: #fff;
+    white-space: nowrap;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a class="logo" href="#"><img src="assets/nasa-logo.png" alt="NASA logo"></a>
+      <a class="explore-btn" href="#">Explore ▾</a>
+      <div class="search-box"> <input type="text" placeholder="Search"></div>
+    </div>
+    <nav>
+      <a href="news.html">News &amp; Events ▾</a>
+      <a href="multimedia.html">Multimedia ▾</a>
+      <a href="nasa-plus.html" class="nasa-plus">NASA+ <span class="live-tag">LIVE</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= SUB NAV ================= -->
+<nav class="subnav">
+  <div class="wrap">
+    <a href="images.html">Images</a>
+    <a href="nasa-plus.html">NASA+</a>
+    <a href="#">Podcasts</a>
+    <a href="#">e-Books</a>
+    <a href="#">Games and Interactives</a>
+    <a href="#">Mobile &amp; Desktop Apps</a>
+    <a href="#">More ▾</a>
+  </div>
+</nav>
+
+<!-- ================= PAGE HEADER ================= -->
+<section class="page-head">
+  <div class="wrap">
+    <h1>Multimedia</h1>
+    <div class="news-callout">
+      <div class="tag">MULTIMEDIA NEWS</div>
+      <div class="news-row">
+        <p>In May 2026, NASA was recognized by the 30th Annual Webby Awards with two Awards and five People's Voice Awards, the latter of which were awarded by the voting public.</p>
+        <div class="news-thumb"><img src="assets/multimedia-news-thumb.jpg" alt="Webby Awards recognition thumbnail"></div>
+      </div>
+      <div class="news-nav">
+        <button id="newsPrev">‹</button>
+        <button id="newsNext">›</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HERO FIGURE ================= -->
+<section class="hero-figure">
+  <div class="wrap">
+    <img src="assets/hero-earth-info-center.jpg" alt="Exhibition view of NASA's Earth Information Center with green light trails and a silhouetted visitor">
+    <div class="caption">Exhibition view of NASA's Earth Information Center.<br>NASA/Dan Goods</div>
+  </div>
+</section>
+
+<!-- ================= FEATURE: NASA+ ================= -->
+<section class="feature-row">
+  <div class="wrap">
+    <div class="feature-grid">
+      <div class="feature-text">
+        <div class="eyebrow">Watch</div>
+        <h2>NASA+</h2>
+        <p>NASA+, a new ad-free, no-cost, family-friendly streaming service that embeds you into our missions through new original video series.</p>
+        <a class="feature-link" href="#">Start Streaming <span class="dot">●</span></a>
+      </div>
+      <div class="feature-media">
+        <img src="assets/feature-nasa-plus.jpg" alt="Orange Artemis II mission patches sewn onto Orion Crew Survival System suits">
+        <div class="caption">The Artemis II mission patch sewn on the right shoulder of the Orion Crew Survival System suits.<br>NASA/Joel Kowsky</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURE: SPACE STATION VIEWS ================= -->
+<section class="feature-row white">
+  <div class="wrap">
+    <div class="feature-grid">
+      <div class="feature-text">
+        <div class="eyebrow">Watch</div>
+        <h2>Space Station Views with Mission Audio</h2>
+        <p>Stream live views from the International Space Station accompanied by mission audio when available.</p>
+        <a class="feature-link" href="#">Live Video <span class="dot">●</span></a>
+      </div>
+      <div class="feature-media">
+        <img src="assets/feature-space-station-views.jpg" alt="Long exposure photograph of the space station with star trails above Earth">
+        <div class="caption">This long exposure photograph taken by NASA astronaut Matthew Dominick with a camera programmed for high sensitivity shows star trails and streaks of city lights as the International Space Station orbited 258 miles above the south China Sea off the coast of Vietnam near Ho Chi Minh City.<br>NASA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURE: IMAGE GALLERIES ================= -->
+<section class="feature-row">
+  <div class="wrap">
+    <div class="feature-grid">
+      <div class="feature-text">
+        <div class="eyebrow">View</div>
+        <h2>Image Galleries</h2>
+        <p>NASA has always told its story through its images, a few of which have become icons of human history. Discover images from missions exploring the universe and our home planet.</p>
+        <a class="feature-link" href="#">View Images <span class="dot">●</span></a>
+      </div>
+      <div class="feature-media">
+        <img src="assets/feature-image-galleries.jpg" alt="Astronaut on a spacewalk above the blue and white Earth">
+        <div class="caption">Backdropped against the blue and white Earth 130 nautical miles below, astronaut Mark C. Lee tests the new Simplified Aid for EVA Rescue system on Sept. 16, 1994.<br>NASA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURE: PODCASTS ================= -->
+<section class="feature-row white">
+  <div class="wrap">
+    <div class="feature-grid">
+      <div class="feature-text">
+        <div class="eyebrow">Listen</div>
+        <h2>Podcasts</h2>
+        <p>From longform interviews with astronauts and engineers to narrative shows that take you on a tour of the galaxy, NASA's diverse podcast portfolio lets you experience the thrill of space exploration without ever leaving Earth.</p>
+        <a class="feature-link" href="#">Start Listening <span class="dot">●</span></a>
+      </div>
+      <div class="feature-media">
+        <img src="assets/feature-podcasts.jpg" alt="Composite image of the Tarantula Nebula combining X-ray and infrared data">
+        <div class="caption">Composite image of the "Tarantula Nebula," officially known as 30 Doradus, combining X-ray data from NASA's Chandra X-ray Observatory with an infrared image from NASA's James Webb Space Telescope.<br>NASA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MORE ONLINE FEATURES ================= -->
+<section class="section">
+  <div class="wrap">
+    <h2>More Online Features</h2>
+    <div class="online-grid">
+      <div class="online-card">
+        <img src="assets/feature-games-interactives.jpg" alt="Illustration of a floating island with a small house, representing NASA games and interactives">
+        <h4>Games &amp; Interactives</h4>
+        <p>Visit our library of educational games and data visualizations.</p>
+        <a class="link" href="#">Explore ●</a>
+      </div>
+      <div class="online-card">
+        <img src="assets/feature-ebooks.jpg" alt="Illustration of an astronaut floating above Earth, representing NASA e-Books">
+        <h4>e-Books</h4>
+        <p>Read and download free NASA e-Books on the agency's history and science.</p>
+        <a class="link" href="#">Browse ●</a>
+      </div>
+      <div class="online-card">
+        <img src="assets/feature-data-sonifications.jpg" alt="Colorful visualization of a black hole representing data sonifications">
+        <h4>Data Sonifications</h4>
+        <p>Observational data from NASA telescopes translated into sound.</p>
+        <a class="link" href="#">Listen ●</a>
+      </div>
+      <div class="online-card">
+        <img src="assets/feature-3d-resources.jpg" alt="Grayscale image of the Moon representing 3D resources">
+        <h4>3D Resources</h4>
+        <p>Repository of 3D models related to NASA missions.</p>
+        <a class="link" href="#">Browse ●</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BRAND CENTER ================= -->
+<section class="brand-center">
+  <img src="assets/brand-center-bg.jpg" alt="NASA logo backdrop with sky and structural background">
+  <div class="wrap">
+    <h2>NASA Brand Center</h2>
+    <p>NASA has established specific guidelines for the use of its brand, merchandise, and media. These guidelines are designed to ensure that the NASA brand is used consistently and appropriately across all platforms and partnerships.</p>
+    <a class="link" href="#">View Guidelines ●</a>
+  </div>
+</section>
+
+<!-- ================= DISCOVER MORE ================= -->
+<section class="section">
+  <div class="wrap">
+    <h2 style="margin-bottom:24px;">Discover More</h2>
+    <div class="discover-grid">
+      <div class="discover-card"><img src="assets/discover-mm-games.jpg" alt="Spacecraft component representing games and interactives"><div class="label">Games and Interactives <span class="dot">●</span></div></div>
+      <div class="discover-card"><img src="assets/discover-mm-blogs.jpg" alt="Blue tunnel-like abstract image representing blogs"><div class="label">Blogs <span class="dot">●</span></div></div>
+      <div class="discover-card"><img src="assets/discover-mm-newsletters.jpg" alt="Colorful nebula image representing newsletters"><div class="label">Newsletters <span class="dot">●</span></div></div>
+      <div class="discover-card"><img src="assets/discover-mm-mobile-apps.jpg" alt="Person taking a selfie representing mobile and desktop apps"><div class="label">Mobile and Desktop Apps <span class="dot">●</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/nasa-logo.png" alt="NASA logo">
+        <div>
+          <h4>National Aeronautics and Space Administration</h4>
+          <p>NASA explores the unknown in air and space, innovates for the benefit of humanity, and inspires the world through discovery.</p>
+          <div style="margin-top:6px;">
+            <a href="#" style="display:block;font-size:12px;color:#999;margin-bottom:6px;">About NASA's Mission</a>
+            <a class="join" href="#">Join Us ●</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>NASA</h5>
+        <ul><li>Home</li><li>News &amp; Events</li><li>Multimedia</li><li>NASA+ <span style="color:var(--nasa-red);">LIVE</span></li><li>Missions</li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul><li>Humans in Space</li><li>Earth</li><li>The Solar System</li><li>The Universe</li><li>Science</li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul><li>Aeronautics</li><li>Technology</li><li>Learning Resources</li><li>About NASA</li><li>NASA en Español</li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Follow NASA</h5>
+        <div class="footer-social"><span>f</span><span>ig</span><span>x</span><span>yt</span></div>
+        <ul style="margin-top:14px;"><li>More NASA Social Accounts</li><li>NASA Newsletters</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <ul><li>Sitemap</li><li>For Media</li><li>Privacy Policy</li><li>FOIA</li><li>No FEAR Act</li><li>Office of the IG</li><li>Budget &amp; Annual Reports</li><li>Agency Financial Reports</li><li>Contact NASA</li><li>Accessibility</li></ul>
+    </div>
+    <div class="footer-bottom" style="border-top:none;padding-top:6px;">
+      <span>Page Last Updated: Jun 04, 2026</span>
+      <span>Page Editor: Dacia Massengill</span>
+      <span>Responsible NASA Official: Abigail Bowman</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Multimedia news carousel prev/next (cycles through a small demo list)
+  const newsItems = [
+    "In May 2026, NASA was recognized by the 30th Annual Webby Awards with two Awards and five People's Voice Awards, the latter of which were awarded by the voting public.",
+    "NASA's multimedia team continues expanding its podcast and video library across every mission directorate.",
+    "New 3D resources and data sonifications were added to NASA's open online features this quarter."
+  ];
+  let newsIndex = 0;
+  const newsTextEl = document.querySelector('.news-row p');
+  document.getElementById('newsPrev').addEventListener('click', ()=>{
+    newsIndex = (newsIndex - 1 + newsItems.length) % newsItems.length;
+    newsTextEl.textContent = newsItems[newsIndex];
+  });
+  document.getElementById('newsNext').addEventListener('click', ()=>{
+    newsIndex = (newsIndex + 1) % newsItems.length;
+    newsTextEl.textContent = newsItems[newsIndex];
+  });
+</script>
+</body>
+</html>

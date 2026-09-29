@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NASA - National Aeronautics and Space Administration</title>
+<style>
+  :root {
+    --nasa-red: #FC3D21;
+    --nasa-blue: #0B3D91;
+    --black: #000000;
+    --near-black: #0e0e0e;
+    --dark-panel: #111214;
+    --white: #ffffff;
+    --grey-line: #2a2a2a;
+    --grey-text: #9aa0a6;
+    --card-bg: #f4f4f4;
+    --max-w: 1280px;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.4;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+}
+
+.wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+    background: var(--black);
+    color: var(--white);
+    padding: 14px 0;
+}
+
+.topbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo img {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+}
+
+.explore-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .02em;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #1b1b1b;
+    border: 1px solid #3a3a3a;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--grey-text);
+}
+
+.search-box input {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 13px;
+    width: 120px;
+    outline: none;
+}
+
+.topbar nav {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.topbar nav a {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nasa-plus {
+    color: var(--nasa-red);
+    font-weight: 700;
+}
+
+.nasa-plus span {
+
+    border-radius: 4px;
+    border: 1px solid var(--nasa-red);
+    padding: 3px 6px;
+    font-size: 11px;
+    color: #fff;
+
+}
+
+.nasa-plus span:hover   {
+    background: var(--nasa-red);
+    color: #fff;
+    white-space: nowrap;
+}
+
+
+/* ---------- Live banner ---------- */
+.live-banner {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.live-meta {
+    font-size: 12px;
+    color: #555;
+    letter-spacing: .03em;
+    padding: 10px 0 4px;
+}
+
+.live-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0 18px;
+    gap: 16px;
+}
+
+.live-row-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.live-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #ddd;
+}
+
+.live-thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.live-title {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.live-desc {
+    font-size: 13px;
+    color: #555;
+    max-width: 520px;
+}
+
+.live-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--nasa-red);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+    position: relative;
+    height: 560px;
+    overflow: hidden;
+    background: #222;
+}
+
+.hero video,
+.hero img.hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(15%) brightness(.85);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .72) 0%, rgba(0, 0, 0, .35) 45%, rgba(0, 0, 0, 0) 70%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 640px;
+    padding: 0 32px;
+    color: #fff;
+}
+
+.hero-content h1 {
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 18px;
+    letter-spacing: -.01em;
+}
+
+.hero-content p {
+    font-size: 15px;
+    color: #dcdcdc;
+    max-width: 480px;
+    margin-bottom: 24px;
+}
+
+.hero-cta {
+    background: var(--nasa-red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 4px;
+    display: inline-block;
+    width: max-content;
+}
+
+.hero-tabs {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    border-top: 1px solid rgba(255, 255, 255, .15);
+    background: rgba(0, 0, 0, .35);
+}
+
+.hero-tab {
+    flex: 1;
+    padding: 14px 32px;
+    font-size: 12px;
+    color: #ddd;
+    border-right: 1px solid rgba(255, 255, 255, .12);
+}
+
+.hero-tab strong {
+    display: block;
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.hero-controls {
+    position: absolute;
+    z-index: 3;
+    right: 24px;
+    bottom: 70px;
+    display: flex;
+    gap: 8px;
+}
+
+.hero-controls button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #000;
+}
+
+/* ---------- Section headers ---------- */
+.section {
+    padding: 56px 0;
+}
+
+.section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 28px;
+}
+
+.section-head h2 {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.see-more {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nasa-red);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* ---------- Featured news ---------- */
+.news-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 26px;
+}
+
+.news-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #000;
+    color: #fff;
+    min-height: 300px;
+}
+
+.news-card img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    opacity: .85;
+}
+
+.news-card .tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    background: rgba(0, 0, 0, .55);
+    padding: 4px 8px;
+    border-radius: 3px;
+    z-index: 2;
+}
+
+.news-card .info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 16px;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(0, 0, 0, .85), rgba(0, 0, 0, 0));
+}
+
+.news-card .info .read {
+    font-size: 11px;
+    color: #ccc;
+    margin-bottom: 6px;
+}
+
+.news-card .info h3 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.news-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.news-item .thumb {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #ddd;
+}
+
+.news-item .thumb img {
+    width: 100%;
+    height: 100%;
+}
+
+.news-item .read {
+    font-size: 11px;
+    color: #888;
+}
+
+.news-item h4 {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.news-item .type {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--nasa-red);
+    margin-top: 2px;
+}
+
+/* ---------- Davinci full bleed ---------- */
+.feature-panel {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    color: #fff;
+    overflow: hidden;
+}
+
+.feature-panel img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.feature-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .85) 10%, rgba(0, 0, 0, .15) 60%);
+}
+
+.feature-panel .wrap {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 56px;
+}
+
+.feature-panel .eyebrow-links {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 120px;
+}
+
+.feature-panel h2 {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.feature-panel p {
+    max-width: 520px;
+    font-size: 14px;
+    color: #ddd;
+    margin-bottom: 16px;
+}
+
+.feature-panel .link {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* ---------- Solar system dark section ---------- */
+.dark-section {
+    background: var(--black);
+    color: #fff;
+    padding: 56px 0;
+}
+
+.topic-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.topic-card {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    background: #1a1a1a;
+}
+
+.topic-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.topic-card .label {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    z-index: 2;
+    font-size: 15px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.topic-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0) 55%);
+}
+
+.dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--nasa-red);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+}
+
+/* ---------- Image of the day ---------- */
+.iotd-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 36px;
+    align-items: center;
+}
+
+.iotd-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--nasa-red);
+    letter-spacing: .06em;
+    margin-bottom: 8px;
+}
+
+.iotd-grid h3 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.iotd-grid p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 14px;
+    max-width: 380px;
+}
+
+.iotd-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nasa-red);
+}
+
+.iotd-image {
+    position: relative;
+    background: #eee;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.iotd-image img {
+    width: 100%;
+}
+
+.iotd-image .dl {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--nasa-blue);
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+/* ---------- More images ---------- */
+.gallery-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+}
+
+.gallery-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.gallery-pair img {
+    width: 100%;
+    height: 170px;
+}
+
+.gallery-item h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.gallery-item .count {
+    font-size: 11px;
+    color: #888;
+}
+
+/* ---------- Newsletter full bleed ---------- */
+.newsletter {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.newsletter img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.newsletter::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .75) 30%, rgba(0, 0, 0, .1) 75%);
+}
+
+.newsletter .wrap {
+    position: relative;
+    z-index: 2;
+}
+
+.newsletter h2 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+    max-width: 420px;
+    margin-bottom: 16px;
+}
+
+.newsletter p {
+    font-size: 13px;
+    color: #ddd;
+    max-width: 380px;
+    margin-bottom: 4px;
+}
+
+.newsletter .fine {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 18px;
+}
+
+.signup-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.signup-form input {
+    padding: 10px 14px;
+    border-radius: 4px;
+    border: none;
+    font-size: 13px;
+    width: 220px;
+}
+
+.signup-form button {
+    background: var(--nasa-red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 11px 20px;
+    border-radius: 4px;
+}
+
+/* ---------- Max Power ---------- */
+.maxpower-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.maxpower-tag {
+    font-size: 11px;
+    font-weight: 700;
+    color: #666;
+    letter-spacing: .06em;
+    margin-bottom: 8px;
+}
+
+.maxpower-grid h2 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.maxpower-grid p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.maxpower-grid .credit {
+    font-size: 11px;
+    color: #999;
+    margin-top: 6px;
+}
+
+.maxpower-link {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nasa-red);
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.maxpower-img {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.maxpower-img img {
+    width: 100%;
+}
+
+/* ---------- More topics ---------- */
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    background: var(--black);
+    color: #ccc;
+    padding: 48px 0 20px;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.footer-brand {
+    display: flex;
+    gap: 14px;
+}
+
+.footer-brand img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+}
+
+.footer-brand h4 {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.footer-brand p {
+    font-size: 12px;
+    color: #999;
+    max-width: 260px;
+    margin-bottom: 10px;
+}
+
+.footer-brand .join {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--nasa-red);
+}
+
+.footer-col h5 {
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 14px;
+    letter-spacing: .03em;
+}
+
+.footer-col ul li {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.footer-social span {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+}
+
+.footer-bottom {
+    border-top: 1px solid #222;
+    padding-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #777;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.footer-bottom ul {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+@media (max-width:980px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .news-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .topic-grid,
+    .topics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-row {
+        grid-template-columns: 1fr;
+    }
+
+    .iotd-grid,
+    .maxpower-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-top {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-tabs {
+        flex-wrap: wrap;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="topbar-left">
+      <a class="logo" href="index.html"><img src="assets/nasa-logo.png" alt="NASA logo"></a>
+      <a class="explore-btn" href="explore.html">Explore ▾</a>
+      <div class="search-box"><input type="text" placeholder="Search"></div>
+    </div>
+    <nav>
+      <a href="news.html">News &amp; Events ▾</a>
+      <a href="multimedia.html">Multimedia ▾</a>
+      <a href="nasa-plus.html" class="nasa-plus">NASA+ <span class="live-tag">LIVE</span></a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= LIVE BANNER ================= -->
+<section class="live-banner">
+  <div class="wrap">
+    <div class="live-meta" id="liveClock">LIVE — <span id="liveTime"></span></div>
+    <div class="live-row">
+      <div class="live-row-left">
+        <div class="live-thumb"><img src="assets/live-astronaut-thumb.jpg" alt="Astronaut portrait"></div>
+        <div>
+          <div class="live-title">NASA's SpaceX Crew-13</div>
+          <div class="live-desc">Live coverage of the arrival of the agency's SpaceX Crew-13 at Kennedy Space Center in Florida.</div>
+        </div>
+      </div>
+      <div class="live-dot">LIVE</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero">
+  <video id="heroVideo" autoplay muted loop playsinline poster="assets/hero-astronaut.jpg">
+    <source src="assets/hero-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h1>NASA's SpaceX Crew-13</h1>
+    <p>NASA, SpaceX, and international partners are continuing preparations for the agency's Crew-13 launch to the International Space Station following Friday's successful Flight Readiness Review at Kennedy Space Center in Florida. The mission remains targeted to launch no earlier than 11:10 p.m. EDT Thursday, Oct. 1.</p>
+    <a class="hero-cta" href="space-station-updates.html">Space Station Updates</a>
+  </div>
+  <div class="hero-controls">
+    <button id="playBtn" title="Play">▶</button>
+    <button id="pauseBtn" title="Pause">❚❚</button>
+  </div>
+  <div class="hero-tabs">
+    <div class="hero-tab"><strong>Mission Overview</strong>NASA's SpaceX Crew-13 ●</div>
+    <div class="hero-tab"><strong>Podcast</strong>Meet the Crew ●</div>
+    <div class="hero-tab"><strong>Future Mission</strong>NASA's SpaceX Crew-14 ●</div>
+  </div>
+</section>
+
+<!-- ================= FEATURED NEWS ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Featured News</h2>
+      <a class="see-more" href="recently-published.html">Recently Published ●</a>
+    </div>
+
+    <div class="news-grid">
+      <div class="news-card">
+        <span class="tag">◐ BLOG</span>
+        <img src="assets/news-swift-telescope.jpg" alt="Swift telescope instrument imagery">
+        <div class="info">
+          <div class="read">2 min read</div>
+          <h3>NASA's Swift Powers On Third Instrument, Restarts Automated Slewing</h3>
+        </div>
+      </div>
+      <div class="news-card">
+        <img src="assets/news-roman-telescope.jpg" alt="Roman Space Telescope ground station">
+        <div class="info">
+          <div class="read">3 min read</div>
+          <h3>NASA's Roman Team Confirms Ground Stations Receiving Data</h3>
+        </div>
+      </div>
+      <div class="news-card">
+        <span class="tag">◐ ARTICLE</span>
+        <div class="info">
+          <div class="read">3 min read</div>
+          <h3>NASA Tests Dual Mode Propulsion CubeSat Ahead of Launch</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="news-strip">
+      <div class="news-item">
+        <div class="thumb"><img src="assets/news-thumb-san-marino.jpg" alt="Artemis Accords signing, San Marino"></div>
+        <div class="read">5 min read</div>
+        <h4>NASA Welcomes San Marino Signing the Artemis Accords</h4>
+        <div class="type">● ARTICLE</div>
+      </div>
+      <div class="news-item">
+        <div class="thumb"><img src="assets/news-thumb-cote-divoire.jpg" alt="Artemis Accords signing, Côte d'Ivoire"></div>
+        <div class="read">4 min read</div>
+        <h4>NASA Welcomes Côte d'Ivoire as Newest Artemis Accords Signatory</h4>
+        <div class="type">● ARTICLE</div>
+      </div>
+      <div class="news-item">
+        <div class="thumb"><img src="assets/news-thumb-mars-food.jpg" alt="Mars space food systems concept"></div>
+        <div class="read">3 min read</div>
+        <h4>NASA Unveils Mars Space Food Systems Challenge</h4>
+        <div class="type">● ARTICLE</div>
+      </div>
+      <div class="news-item">
+        <div class="thumb"><img src="assets/news-thumb-skywatching.jpg" alt="September skywatching tips graphic"></div>
+        <div class="read">3 min read</div>
+        <h4>What's Up September 2026 Skywatching Tips from NASA</h4>
+        <div class="type">● ARTICLE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DAVINCI FEATURE PANEL ================= -->
+<section class="feature-panel">
+  <img src="assets/davinci-workshop.jpg" alt="Engineer testing the DAVINCI probe engineering model in a workshop">
+  <div class="wrap">
+    <div class="eyebrow-links"><a href="about-nasa.html">About NASA</a><a href="join-us.html">Join Us ●</a></div>
+    <h2>DAVINCI Beats the Heat</h2>
+    <p>An engineering model of NASA's DAVINCI (Deep Atmosphere Venus Investigation of Noble gases, Chemistry, and Imaging) probe recently passed a key high-temperature test, demonstrating it can survive the extreme conditions it will encounter on Venus.</p>
+    <a class="link" href="venus-exploration.html">Venus Exploration ●</a>
+  </div>
+</section>
+
+<!-- ================= SOLAR SYSTEM (DARK) ================= -->
+<section class="dark-section">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:24px;">
+      <h2>Solar System Exploration</h2>
+      <a class="see-more" href="discover-more.html">Discover More ●</a>
+    </div>
+    <div class="topic-grid">
+      <div class="topic-card"><img src="assets/solar-venus.webp" alt="Venus"><div class="label">Venus <span class="dot">●</span></div></div>
+      <div class="topic-card"><img src="assets/solar-planets.webp" alt="Planets of the solar system"><div class="label">Planets <span class="dot">●</span></div></div>
+      <div class="topic-card"><img src="assets/solar-planetary-analogs.jpg" alt="Desert planetary analog site"><div class="label">Planetary Analogs <span class="dot">●</span></div></div>
+      <div class="topic-card"><img src="assets/solar-eyes.jpg " alt="Eyes on the Solar System visualization"><div class="label">Eyes <span class="dot">●</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= IMAGE OF THE DAY ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="iotd-grid">
+      <div>
+        <div class="iotd-tag">TODAY</div>
+        <h3>Image Of The Day</h3>
+        <p><strong>Hubble Spots Chaotic Secret in Galaxy</strong><br>Though the spiral galaxy in this ESA/Hubble Picture of the Month seems serene, it hides a chaotic secret.</p>
+        <a class="iotd-link" href="browse-image-archive.html">Browse Image Archive ●</a>
+      </div>
+      <div class="iotd-image">
+        <img src="assets/image-of-the-day-galaxy.jpg" alt="Spiral galaxy captured by Hubble Space Telescope">
+        <div class="dl">⬇</div>
+      </div>
+    </div>
+    <p style="text-align:right;font-size:12px;font-weight:700;color:var(--nasa-red);margin-top:14px;">View full image page ●</p>
+  </div>
+</section>
+
+<!-- ================= MORE NASA IMAGES ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <h2 style="font-size:22px;font-weight:800;">More NASA Images</h2>
+    <div class="gallery-row">
+      <div class="gallery-item">
+        <div class="gallery-pair">
+          <img src="assets/gallery-hubble-1.jpg" alt="Hubble Space Telescope image 1">
+          <img src="assets/gallery-hubble-2.jpg" alt="Hubble Space Telescope image 2">
+        </div>
+        <h4>Great Observatories: Hubble Space Telescope Gallery</h4>
+        <div class="count">612 IMAGES</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-pair">
+          <img src="assets/gallery-webb-1.jpg" alt="James Webb Space Telescope image 1">
+          <img src="assets/gallery-webb-2.jpg" alt="James Webb Space Telescope image 2">
+        </div>
+        <h4>Great Observatories: James Webb Space Telescope Gallery</h4>
+        <div class="count">59 IMAGES</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-pair">
+          <img src="assets/gallery-chandra-1.jpg" alt="Chandra X-ray Observatory image 1">
+          <img src="assets/gallery-chandra-2.jpg" alt="Chandra X-ray Observatory image 2">
+        </div>
+        <h4>Great Observatories: Chandra X-ray Observatory Gallery</h4>
+        <div class="count">26 IMAGES</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="newsletter">
+  <img src="assets/newsletter-nebula.jpg" alt="Colorful nebula in deep space">
+  <div class="wrap">
+    <h2>Explore the Universe from your Inbox</h2>
+    <p>Stay up-to-date on the latest news from NASA—from Earth to the Moon, the Solar System and beyond.</p>
+    <div class="fine">We will never share your email address. Privacy Policy</div>
+    <form class="signup-form" id="signupForm">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Sign Up ●</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= MAX POWER ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="maxpower-grid">
+      <div>
+        <div class="maxpower-tag">TWO-DAY AEROSPACE FESTIVAL</div>
+        <h2>MAX POWER</h2>
+        <p>Celebrate the spirit of American innovation at MAX POWER — an exposition of air and space technologies at Kennedy Space Center in Florida, Nov. 7–8.</p>
+        <p>The two-day event will feature immersive experiences for all ages to enjoy, including air shows, technology demonstrations, spacefight hardware, military aircraft, and behind the scenes access to America's spaceport. In collaboration with Air Dot Show, UP Summit, Space Florida, Delaware North, and Purpose Entertainment, MAX POWER blends history, exploration, and the cutting edge of aerospace into an unforgettable experience.</p>
+        <a class="maxpower-link" href="learn-more.html">Learn More ●</a>
+      </div>
+      <div>
+        <div class="maxpower-img"><img src="assets/maxpower-jet.jpg" alt="A NASA F-15 jet flying with Air Force Thunderbirds"></div>
+        <div class="credit">A NASA F-15 aircraft is shown flying next to a U.S. Air Force Thunderbirds squadron aircraft during a countrywide Flight Test flyover, Washington, D.C., on July 4, 2020.<br>NASA/Jim Ross</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MORE TOPICS ================= -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>More Topics from NASA</h2></div>
+    <div class="topics-grid">
+      <div class="topic-card" style="background:#000;"><img src="assets/topic-missions.jpg" alt="NASA missions collage"><div class="label">Missions <span class="dot">●</span></div></div>
+      <div class="topic-card" style="background:#000;"><img src="assets/topic-humans-in-space.jpg" alt="Astronaut in space"><div class="label">Humans In Space <span class="dot">●</span></div></div>
+      <div class="topic-card" style="background:#000;"><img src="assets/topic-earth.jpg" alt="Earth viewed from space"><div class="label">Earth <span class="dot">●</span></div></div>
+      <div class="topic-card" style="background:#000;"><img src="assets/topic-solar-system.jpg" alt="Solar system planets"><div class="label">Our Solar System <span class="dot">●</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/nasa-logo.png" alt="NASA logo">
+        <div>
+          <h4>National Aeronautics and Space Administration</h4>
+          <p>NASA explores the unknown in air and space, innovates for the benefit of humanity, and inspires the world through discovery.</p>
+          <a class="join" href="join-us.html">Join Us ●</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>NASA</h5>
+        <ul><li><a href="index.html">Home</a></li><li><a href="news.html">News &amp; Events</a></li><li><a href="multimedia.html">Multimedia</a></li><li><a href="missions.html">Missions</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Explore</h5>
+        <ul><li><a href="humans-in-space.html">Humans In Space</a></li><li><a href="earth.html">Earth</a></li><li><a href="solar-system.html">The Universe</a></li><li><a href="science.html">Science</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>About</h5>
+        <ul><li><a href="aeronautics.html">Aeronautics</a></li><li><a href="technology.html">Technology</a></li><li><a href="learning-resources.html">Learning Resources</a></li><li><a href="about-nasa.html">About NASA</a></li><li><a href="nasa-en-espanol.html">NASA en Español</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Follow NASA</h5>
+        <div class="footer-social">
+          <span>f</span><span>ig</span><span>x</span><span>yt</span>
+        </div>
+        <ul style="margin-top:14px;"><li><a href="more-nasa-social-accounts.html">More NASA Social Accounts</a></li><li><a href="nasa-newsletters.html">NASA Newsletters</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Page Last Updated: Sep 25, 2026 | Page Editor: Derek Messersmith | Responsible NASA Official: Abigail Bowman</span>
+      <ul><li><a href="sitemap.html">Sitemap</a></li><li><a href="faq.html">FAQ</a></li><li><a href="foia.html">FOIA</a></li><li><a href="no-fear-act.html">NO FEAR Act</a></li><li><a href="office-of-the-ig.html">Office of the IG</a></li><li><a href="budget-annual-reports.html">Budget &amp; Annual Reports</a></li><li><a href="agency-financial-reports.html">Agency Financial Reports</a></li><li><a href="contact-nasa.html">Contact NASA</a></li><li><a href="accessibility.html">Accessibility</a></li></ul>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Live clock
+  function updateClock(){
+    const now = new Date();
+    const opts = { weekday:'long', month:'short', day:'numeric', hour:'numeric', minute:'2-digit' };
+    const local = now.toLocaleString('en-US', opts);
+    document.getElementById('liveTime').textContent = local + ' local time';
+  }
+  updateClock();
+  setInterval(updateClock, 30000);
+
+  // Hero video play/pause controls
+  const heroVideo = document.getElementById('heroVideo');
+  const playBtn = document.getElementById('playBtn');
+  const pauseBtn = document.getElementById('pauseBtn');
+  playBtn.addEventListener('click', () => { heroVideo.play(); });
+  pauseBtn.addEventListener('click', () => { heroVideo.pause(); });
+
+  // Newsletter signup (front-end only demo)
+  document.getElementById('signupForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Thanks for signing up! (This is a front-end demo — connect a real signup service to store emails.)');
+    this.reset();
+  });
+</script>
+</body>
+</html>
